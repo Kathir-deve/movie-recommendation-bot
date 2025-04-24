@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎬 Movie Recommendation Bot</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(to right, #1c1c1c, #3a3a3a);
+            color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 50px 20px;
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            color: #f4b400;
+        }
+
+        form {
+            background: #2a2a2a;
+            padding: 30px 40px;
+            border-radius: 15px;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        input[type="text"] {
+            padding: 10px;
+            font-size: 1rem;
+            border-radius: 8px;
+            border: none;
+            width: 100%;
+        }
+
+        button {
+            background-color: #f4b400;
+            border: none;
+            padding: 12px 25px;
+            font-size: 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            color: #000;
+            transition: background-color 0.3s ease;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #e09c00;
+        }
+
+        h2 {
+            margin-top: 40px;
+            font-size: 2.5rem;
+            color: #00e5ff;
+        }
+
+        .recommendations {
+            margin-top: 20px;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            background-color: #444;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 10px;
+            font-size: 1.2rem;
+        }
+
+        li strong {
+            color: #f4b400;
+        }
+
+        .no-recommendations {
+            color: #ff5555;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        @media (max-width: 600px) {
+            form {
+                width: 90%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>🎬 MovieBot</h1>
+    <form action="/recommend" method="post">
+        <label for="genre">What's your favorite genre?</label>
+        <input type="text" id="genre" name="genre" placeholder="e.g. Action, Comedy..." required>
+        <button type="submit">🎥 Get Recommendations</button>
+    </form>
+
+    <div class="recommendations">
+        {% if recommendations and recommendations|length > 0 %}
+            <h2>Top Picks for You:</h2>
+            <ul>
+                {% for movie in recommendations %}
+                    <li><strong>{{ movie.title }}</strong> (Genre: {{ movie.genre }})</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p class="no-recommendations">No recommendations available. Please try another genre!</p>
+        {% endif %}
+    </div>
+</body>
+</html>
